@@ -24,6 +24,8 @@ typedef enum {
 typedef struct {
   unsigned char *buffer;
   unsigned short width, height;
+
+  unsigned short transparentColor;
 } buffer_t;
 
 typedef struct {
@@ -33,7 +35,7 @@ typedef struct {
   unsigned short x;
   unsigned char y;
 
-  unsigned char zoom;
+  //unsigned char zoom;
 } parameters_t;
 
 typedef struct {
@@ -50,10 +52,12 @@ typedef struct {
 
 void die(const char *msg);
 
-const unsigned char startFEN[] = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-
 game_t FEN_to_game(unsigned char *fen);
-void draw_sprite_noclip(buffer_t buffer, unsigned char *sprite, unsigned int x, unsigned char y, unsigned int w, unsigned char h, unsigned char zoom);
+
+void fill_buffer(buffer_t buffer, unsigned short color);
+void draw_horiz_line_noclip(buffer_t buffer, unsigned short x, unsigned short y, unsigned short w, unsigned short color);
+void draw_rect_noclip(buffer_t buffer, unsigned short x, unsigned short y, unsigned short w, unsigned char h, unsigned short color);
+void draw_sprite_noclip(buffer_t buffer, unsigned char *sprite, unsigned short x, unsigned char y, unsigned short w, unsigned char h);
 void draw_board_noclip(buffer_t buffer, game_t game, parameters_t param);
 
 #endif
